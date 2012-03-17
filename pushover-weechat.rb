@@ -26,9 +26,9 @@
 #
 #        /set plugins.var.ruby.pushover-weechat.apikey 123456789abcdefgh
 #
-#   Set your Pushover user.
+#   Set your Pushover user key.
 #
-#       /set plugins.var.ruby.pushover-weechat.user user@example.com
+#       /set plugins.var.ruby.pushover-weechat.userkey 123456789abcdefgh
 #
 # Options
 # -------
@@ -38,9 +38,9 @@
 #       The API Key of your Pushover service.
 #       Default: Empty string
 #
-#   plugins.var.ruby.pushover-weechat.user
+#   plugins.var.ruby.pushover-weechat.userkey
 #
-#       The user for your Pushover service.
+#       The user key for your Pushover service.
 #       Default: Empty string
 #
 #   plugins.var.ruby.pushover-weechat.interval
@@ -61,8 +61,8 @@ SCRIPT_LICENSE = 'APL'
 
 DEFAULTS = {
   'apikey'          => "",
-  'user'            => "",
-  'interval'        => 60,
+  'userkey'         => "",
+  'interval'        => "60",
 }
 
 def weechat_init
@@ -73,6 +73,8 @@ def weechat_init
       Weechat.config_set_plugin(option, def_value)
     end
   }
+
+  @last = Time.now - Weechat.config_get_plugin('interval').to_i
 
   Weechat.print("", "pushover-weechat: Please set your API key with: /set plugins.var.ruby.pushover-weechat.apikey")
 
@@ -92,17 +94,17 @@ def notify(data, signal, signal_data)
     event = "Highlight"
   end
 
-  if (Time.now - @last) > Weechat.config_get_plugin('interval')
+  if (Time.now - @last) > Weechat.config_get_plugin('interval').to_i
     url = URI.parse("https://api.pushover.net/1/messages")
     req = Net::HTTP::Post.new(url.path)
     req.set_form_data({
       :token => Weechat.config_get_plugin('apikey'),
-      :user => Weechat.config_get_plugin('user'),
+      :user => Weechat.config_get_plugin('userkey'),
       :message => signal_data
     })
     res = Net::HTTP.new(url.host, url.port)
     res.use_ssl = true
-    res.verify_mode = OpenSSL::SSL::VERIFY_PEER
+    res.verify_mode = OpenSSL::SSL::VERIFY_NONE
     res.start {|http| http.request(req) }
     @last = Time.now
   else
