@@ -89,17 +89,18 @@ def notify(data, signal, signal_data)
   @last = Time.now unless @last
 
   if signal == "weechat_pv"
-    event = "Private message"
+    event = "Weechat Private message"
   elsif signal == "weechat_highlight"
-    event = "Highlight"
+    event = "Weechat Highlight"
   end
 
   if (Time.now - @last) > Weechat.config_get_plugin('interval').to_i
     url = URI.parse("https://api.pushover.net/1/messages")
     req = Net::HTTP::Post.new(url.path)
     req.set_form_data({
-      :token => Weechat.config_get_plugin('apikey'),
-      :user => Weechat.config_get_plugin('userkey'),
+      :token   => Weechat.config_get_plugin('apikey'),
+      :user    => Weechat.config_get_plugin('userkey'),
+      :title   => event,
       :message => signal_data
     })
     res = Net::HTTP.new(url.host, url.port)
