@@ -12,15 +12,10 @@ Load the pushover-weechat.rb plugin into Weechat. Place it in the
 
     /ruby load pushover-weechat.rb
 
-It also requires a Pushover account and for you to create an appropriate
-application.
+It also requires a Pushover account.
 
 Setup
 -----
-
-Set your Pushover API key.
-
-    /set plugins.var.ruby.pushover-weechat.apikey 123456789abcdefgh
 
 Set your Pushover user key.
 
@@ -28,11 +23,6 @@ Set your Pushover user key.
 
 Options
 -------
-
-plugins.var.ruby.pushover-weechat.apikey
-
-The API Key of your Pushover service.
-Defaults to an empty string and must be set for pushover-weechat to work.
 
 plugins.var.ruby.pushover-weechat.userkey
 

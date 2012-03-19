@@ -22,21 +22,12 @@
 # Setup
 # -----
 #
-#   Set your Pushover API key.
-#
-#        /set plugins.var.ruby.pushover-weechat.apikey 123456789abcdefgh
-#
 #   Set your Pushover user key.
 #
 #       /set plugins.var.ruby.pushover-weechat.userkey 123456789abcdefgh
 #
 # Options
 # -------
-#
-#   plugins.var.ruby.pushover-weechat.apikey
-#
-#       The API Key of your Pushover service.
-#       Default: Empty string
 #
 #   plugins.var.ruby.pushover-weechat.userkey
 #
@@ -60,7 +51,7 @@ SCRIPT_VERSION = '0.1'
 SCRIPT_LICENSE = 'APL'
 
 DEFAULTS = {
-  'apikey'          => "",
+  'apikey'          => "eWEPQ0QQrM2A4WBfx8zZoEpYWBAuBa",
   'userkey'         => "",
   'interval'        => "60",
 }
@@ -76,7 +67,7 @@ def weechat_init
 
   @last = Time.now - Weechat.config_get_plugin('interval').to_i
 
-  Weechat.print("", "pushover-weechat: Please set your API key with: /set plugins.var.ruby.pushover-weechat.apikey")
+  Weechat.print("", "pushover-weechat: Please set your API key with: /set plugins.var.ruby.pushover-weechat.userkey")
 
   Weechat.hook_signal("weechat_highlight", "notify", "")
   Weechat.hook_signal("weechat_pv", "notify", "")
