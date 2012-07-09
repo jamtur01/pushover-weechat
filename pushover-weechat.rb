@@ -46,7 +46,7 @@ require 'net/https'
 
 SCRIPT_NAME = 'pushover-weechat'
 SCRIPT_AUTHOR = 'James Turnbull <james@lovedthanlost.net>'
-SCRIPT_DESC = 'Send highlights and private messages in channels to your Android device via Notify My Android'
+SCRIPT_DESC = 'Send highlights and private messages in channels to your Android or IOS device via Pushover'
 SCRIPT_VERSION = '0.1'
 SCRIPT_LICENSE = 'APL'
 
