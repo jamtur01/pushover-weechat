@@ -12,7 +12,7 @@ Load the pushover-weechat.rb plugin into Weechat. Place it in the
 
     /ruby load pushover-weechat.rb
 
-It also requires a Pushover account.
+It also requires a Pushover account and Ruby, the Ruby OpenSSL libraries, and RubyGems installed on your host.
 
 Setup
 -----
