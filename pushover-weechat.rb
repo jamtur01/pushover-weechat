@@ -40,6 +40,33 @@
 #       notification was within x seconds.
 #       Default: 60 seconds
 #
+#   plugins.var.ruby.pushover-weechat.sound
+#
+#       Set your notification sound
+#         options (Current listing located at https://pushover.net/api#sounds)
+#           pushover - Pushover (default)
+#           bike - Bike
+#           bugle - Bugle
+#           cashregister - Cash Register
+#           classical - Classical
+#           cosmic - Cosmic
+#           falling - Falling
+#           gamelan - Gamelan
+#           incoming - Incoming
+#           intermission - Intermission
+#           magic - Magic
+#           mechanical - Mechanical
+#           pianobar - Piano Bar
+#           siren - Siren
+#           spacealarm - Space Alarm
+#           tugboat - Tug Boat
+#           alien - Alien Alarm (long)
+#           climb - Climb (long)
+#           persistent - Persistent (long)
+#           echo - Pushover Echo (long)
+#           updown - Up Down (long)
+#           none - None (silent)
+#       Default: blank (Sound will be device default tone set in Pushover)
 
 require 'rubygems'
 require 'net/https'
@@ -54,6 +81,7 @@ DEFAULTS = {
   'apikey'          => "eWEPQ0QQrM2A4WBfx8zZoEpYWBAuBa",
   'userkey'         => "",
   'interval'        => "60",
+  'sound'           => "",  
 }
 
 def weechat_init
@@ -91,6 +119,7 @@ def notify(data, signal, signal_data)
     req.set_form_data({
       :token   => Weechat.config_get_plugin('apikey'),
       :user    => Weechat.config_get_plugin('userkey'),
+      :sound    => Weechat.config_get_plugin('sound'),
       :title   => event,
       :message => signal_data
     })
