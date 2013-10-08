@@ -30,6 +30,40 @@ The user key for your Pushover service.
 Defaults to an empty string and must be set for pushover-weechat to
 work.
 
+plugins.var.ruby.pushover-weechat.interval
+
+   The interval between notifications. Doesn't notify if the last
+   notification was within x seconds.
+   Default: 60 seconds
+
+plugins.var.ruby.pushover-weechat.sound
+
+   Set your notification sound
+     options (Current listing located at https://pushover.net/apisounds)
+       pushover - Pushover (default)
+       bike - Bike
+       bugle - Bugle
+       cashregister - Cash Register
+       classical - Classical
+       cosmic - Cosmic
+       falling - Falling
+       gamelan - Gamelan
+       incoming - Incoming
+       intermission - Intermission
+       magic - Magic
+       mechanical - Mechanical
+       pianobar - Piano Bar
+       siren - Siren
+       spacealarm - Space Alarm
+       tugboat - Tug Boat
+       alien - Alien Alarm (long)
+       climb - Climb (long)
+       persistent - Persistent (long)
+       echo - Pushover Echo (long)
+       updown - Up Down (long)
+       none - None (silent)
+   Default: blank (Sound will be device default tone set in Pushover)
+
 Author
 ------
 
