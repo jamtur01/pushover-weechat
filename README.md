@@ -69,7 +69,7 @@ Author
 
 James Turnbull (<james@lovedthanlost.net>)
 
-Contributions from [Zach Leslie](https://twitter.com/xaque208) and [Erica Baker](https://twitter.com/EricaJoy).
+Contributions from [Zach Leslie](https://twitter.com/xaque208), [Ben Hughes](https://twitter.com/benjammingh), and [Erica Baker](https://twitter.com/EricaJoy).
 
 License
 -------
