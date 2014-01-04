@@ -107,6 +107,11 @@ def notify(data, signal, signal_data)
 
   @last = Time.now unless @last
 
+  buffer = Weechat.current_buffer()
+  isaway = Weechat.buffer_get_string(buffer, "localvar_away") != ""
+
+  return Weechat::WEECHAT_RC_OK unless isaway
+
   if signal == "weechat_pv"
     event = "Weechat Private message from " + (signal_data.split(' '))[0]
   elsif signal == "weechat_highlight"
