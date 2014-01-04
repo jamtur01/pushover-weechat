@@ -40,6 +40,12 @@
 #       notification was within x seconds.
 #       Default: 60 seconds
 #
+#   plugins.var.ruby.pushover-weechat.away
+#
+#       Check whether the client is to /away for the current buffer and
+#       notifies if they're away. Set to on for this to happen.
+#       Default: off
+#
 #   plugins.var.ruby.pushover-weechat.sound
 #
 #       Set your notification sound
@@ -81,7 +87,8 @@ DEFAULTS = {
   'apikey'          => "eWEPQ0QQrM2A4WBfx8zZoEpYWBAuBa",
   'userkey'         => "",
   'interval'        => "60",
-  'sound'           => "",  
+  'sound'           => "",
+  'away'            => 'off'
 }
 
 def weechat_init
@@ -106,6 +113,15 @@ end
 def notify(data, signal, signal_data)
 
   @last = Time.now unless @last
+
+  # Only check if we're away if the plugin says to, only notify if we are
+  # away.
+  if Weechat.config_get_plugin('away') == 'on'
+    buffer = Weechat.current_buffer()
+    isaway = Weechat.buffer_get_string(buffer, "localvar_away") != ""
+
+    return Weechat::WEECHAT_RC_OK unless isaway
+  end
 
   if signal == "weechat_pv"
     event = "Weechat Private message from " + (signal_data.split(' '))[0]
