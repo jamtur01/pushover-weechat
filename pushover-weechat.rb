@@ -122,9 +122,9 @@ def notify(data, signal, signal_data)
   end
 
   if signal == "weechat_pv"
-    event = "Weechat Private message from " + (signal_data.split(' '))[0]
+    event = "Weechat Private message from #{signal_data.split.first}"
   elsif signal == "weechat_highlight"
-    event = "Weechat Highlight from " + (signal_data.split(' '))[0]
+    event = "Weechat Highlight from #{signal_data.split.first}"
   end
 
   if (Time.now - @last) > Weechat.config_get_plugin('interval').to_i
