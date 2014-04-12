@@ -135,7 +135,7 @@ def notify(data, signal, signal_data)
       :user    => Weechat.config_get_plugin('userkey'),
       :sound   => Weechat.config_get_plugin('sound'),
       :title   => event,
-      :message => signal_data[/^\S+ (.*)/, 1]
+      :message => signal_data[/^\S+\t(.*)/, 1]
     })
     res = Net::HTTP.new(url.host, url.port)
     res.use_ssl = true
