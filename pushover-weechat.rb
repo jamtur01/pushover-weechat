@@ -92,13 +92,11 @@ DEFAULTS = {
 }
 
 def weechat_init
-  Weechat.register SCRIPT_NAME, SCRIPT_AUTHOR, SCRIPT_VERSION, SCRIPT_LICENSE, SCRIPT_DESC, "", ""
-  DEFAULTS.each_pair { |option, def_value|
+  Weechat.register(SCRIPT_NAME, SCRIPT_AUTHOR, SCRIPT_VERSION, SCRIPT_LICENSE, SCRIPT_DESC, "", "")
+  DEFAULTS.each_pair do |option, def_value|
     cur_value = Weechat.config_get_plugin(option)
-    if cur_value.nil? || cur_value.empty?
-      Weechat.config_set_plugin(option, def_value)
-    end
-  }
+    Weechat.config_set_plugin(option, def_value) if cur_value.nil? || cur_value.empty?
+  end
 
   @last = Time.now - Weechat.config_get_plugin('interval').to_i
 
@@ -117,7 +115,7 @@ def notify(data, signal, signal_data)
   # Only check if we're away if the plugin says to, only notify if we are
   # away.
   if Weechat.config_get_plugin('away') == 'on'
-    buffer = Weechat.current_buffer()
+    buffer = Weechat.current_buffer
     isaway = Weechat.buffer_get_string(buffer, "localvar_away") != ""
 
     return Weechat::WEECHAT_RC_OK unless isaway
@@ -135,14 +133,14 @@ def notify(data, signal, signal_data)
     req.set_form_data({
       :token   => Weechat.config_get_plugin('apikey'),
       :user    => Weechat.config_get_plugin('userkey'),
-      :sound    => Weechat.config_get_plugin('sound'),
+      :sound   => Weechat.config_get_plugin('sound'),
       :title   => event,
-      :message => (signal_data.split(' '))[1...(signal_data.split(' ')).size].join(' ')
+      :message => signal_data[/^\S+ (.*)/, 1]
     })
     res = Net::HTTP.new(url.host, url.port)
     res.use_ssl = true
     res.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    res.start {|http| http.request(req) }
+    res.start { |http| http.request(req) }
     @last = Time.now
   else
     Weechat.print("", "pushover-weechat: Skipping notification, too soon since last notification")
