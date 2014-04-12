@@ -122,9 +122,9 @@ def notify(data, signal, signal_data)
   end
 
   if signal == "weechat_pv"
-    event = "Weechat Private message from " + (signal_data.split(' '))[0]
+    event = "Weechat Private message from #{signal_data.split.first}"
   elsif signal == "weechat_highlight"
-    event = "Weechat Highlight from " + (signal_data.split(' '))[0]
+    event = "Weechat Highlight from #{signal_data.split.first}"
   end
 
   if (Time.now - @last) > Weechat.config_get_plugin('interval').to_i
@@ -135,7 +135,7 @@ def notify(data, signal, signal_data)
       :user    => Weechat.config_get_plugin('userkey'),
       :sound   => Weechat.config_get_plugin('sound'),
       :title   => event,
-      :message => signal_data[/^\S+ (.*)/, 1]
+      :message => signal_data[/^\S+\t(.*)/, 1]
     })
     res = Net::HTTP.new(url.host, url.port)
     res.use_ssl = true
