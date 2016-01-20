@@ -74,6 +74,9 @@
 #           none - None (silent)
 #       Default: blank (Sound will be device default tone set in Pushover)
 
+# fix for weechat UTF_7 encoding issue
+require 'enc/encdb.so'
+
 require 'rubygems'
 require 'net/https'
 
