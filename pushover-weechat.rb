@@ -73,6 +73,11 @@
 #           updown - Up Down (long)
 #           none - None (silent)
 #       Default: blank (Sound will be device default tone set in Pushover)
+#
+#   plugins.var.ruby.pushover-weechat.ignore_re
+#
+#       Regular expression to skip certain kinds of highlights
+#
 
 # fix for weechat UTF_7 encoding issue
 require 'enc/encdb.so'
@@ -139,7 +144,7 @@ def notify(data, signal, signal_data)
       :user    => Weechat.config_get_plugin('userkey'),
       :sound   => Weechat.config_get_plugin('sound'),
       :title   => event,
-      :message => signal_data[/^\S+\t(.*)/, 1]
+      :message => message
     })
     res = Net::HTTP.new(url.host, url.port)
     res.use_ssl = true
