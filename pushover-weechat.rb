@@ -137,6 +137,7 @@ def notify(data, signal, signal_data)
   end
 
   if (Time.now - @last) > Weechat.config_get_plugin('interval').to_i
+    message = signal_data[/^\S+\t(.*)/, 1]
     url = URI.parse("https://api.pushover.net/1/messages.json")
     req = Net::HTTP::Post.new(url.path, 'Content-Type' => 'application/json')
     req.body = JSON.generate({
